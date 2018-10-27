@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "518055658949",
+    "firebase_url": "https://busrun-caa4f.firebaseio.com",
+    "project_id": "busrun-caa4f",
+    "storage_bucket": "busrun-caa4f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:518055658949:android:6dade3e3806c503d",
+        "android_client_info": {
+          "package_name": "com.busrun"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "518055658949-ti9gprlikjtkucheer5c6pqnvg4ks0rd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWLqPIOkJuKpM7bxVCMYY053LQBYbR_jI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
