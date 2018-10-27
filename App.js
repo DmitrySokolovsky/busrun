@@ -20,20 +20,6 @@ export default class App extends Component {
     };
   }
 
-  async componentDidMount() {
-    try {
-      let result = await FCM.requestPermissions({badge: false, sound: true, alert: true});
-      Alert.alert('Success!');
-    } catch(err) {
-      Alert.alert('Error');
-    }
-
-    FCM.getFCMToken().then(token => {
-      console.log("TOKEN (getFCMToken)", token);
-      this.setState({token: token || ""})
-    });
-  }
-
   render() {
     return (
       <View style={styles.container}>
