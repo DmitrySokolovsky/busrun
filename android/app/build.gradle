@@ -137,6 +137,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-background-timer')
     compile project(':react-native-fcm')
     implementation ("com.google.firebase:firebase-core:16.0.4")
     implementation fileTree(dir: "libs", include: ["*.jar"])

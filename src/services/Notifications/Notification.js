@@ -1,10 +1,46 @@
-import {
-    Alert
-} from 'react-native';
 import FCM from 'react-native-fcm';
 
-export class Notification {
-    showLocalNotification() {
+export class NotificationService {
+    static async initNotificationService() {
+        FCM.createNotificationChannel({
+            id: 'default',
+            name: 'Default',
+            description: 'used for example',
+            priority: 'high'
+        })
+        registerAppListener(this.props.navigation);
+        FCM.getInitialNotification().then(notif => {
+            console.log(notif);
+            this.setState({
+                initNotif: notif
+            });
+            if (notif && notif.targetScreen === "detail") {
+                setTimeout(() => {
+                    this.props.navigation.navigate("Detail");
+                }, 500);
+            }
+        });
+
+        try {
+            let result = await FCM.requestPermissions({
+                badge: false,
+                sound: true,
+                alert: true
+            });
+        } catch (e) {
+            console.error(e);
+        }
+
+        FCM.getFCMToken().then(token => {
+            console.log("TOKEN (getFCMToken)", token);
+            this.setState({
+                token: token || ""
+            });
+        });
+    }
+
+    static showLocalNotification() {
+        console.log("VIZOV!!!");
         FCM.presentLocalNotification({
             channel: 'default',
             id: new Date().valueOf().toString(), // (optional for instant notification)
@@ -16,7 +52,7 @@ export class Notification {
             badge: 10, // as FCM payload IOS only, set 0 to clear badges
             number: 10, // Android only
             ticker: "My Notification Ticker", // Android only
-            auto_cancel: true, // Android only (default true)
+            auto_cancel: false, // Android only (default true)
             large_icon: "https://image.freepik.com/free-icon/small-boy-cartoon_318-38077.jpg", // Android only
             icon: "ic_launcher", // as FCM payload, you can relace this with custom icon you put in mipmap
             big_text: "Show when notification is expanded", // Android only
@@ -25,15 +61,15 @@ export class Notification {
             vibrate: 300, // Android only default: 300, no vibration if you pass 0
             wake_screen: true, // Android only, wake up screen when notification arrives
             group: "group", // Android only
-            picture: "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png", // Android only bigPicture style
-            ongoing: true, // Android only
+            // picture: "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png", // Android only bigPicture style
+            ongoing: false, // Android only
             my_custom_data: "my_custom_field_value", // extra data you want to throw
             lights: true, // Android only, LED blinking (default false)
             show_in_foreground: true // notification when app is in foreground (local & remote)
         });
     }
 
-    scheduleLocalNotification() {
+    static scheduleLocalNotification() {
         FCM.scheduleLocalNotification({
             id: "testnotif",
             fire_date: new Date().getTime() + 5000,
@@ -68,7 +104,7 @@ export class Notification {
                     id: "dismiss",
                     title: "dismiss"
                 }
-            ]) // for android, take syntax similar to ios's. only buttons are supported
+            ])
         });
     }
 }
