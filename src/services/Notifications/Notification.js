@@ -19,7 +19,7 @@ export class NotificationService {
                     this.props.navigation.navigate("Detail");
                 }, 500);
             }
-        });
+        }).catch(err => console.log(err));
 
         try {
             let result = await FCM.requestPermissions({
@@ -36,7 +36,7 @@ export class NotificationService {
             this.setState({
                 token: token || ""
             });
-        });
+        }).catch(err => console.log(err));
     }
 
     static showLocalNotification() {

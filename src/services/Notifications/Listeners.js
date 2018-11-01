@@ -93,7 +93,7 @@ export function registerAppListener() {
                     break;
               }
         }
-  });
+    }).catch(err => console.log(err));
 
     FCM.on(FCMEvent.RefreshToken, token => {
         console.log("TOKEN (refreshUnsubscribe)", token);
@@ -102,37 +102,36 @@ export function registerAppListener() {
     FCM.enableDirectChannel();
     FCM.on(FCMEvent.DirectChannelConnectionChanged, (data) => {
         console.log('direct channel connected' + data);
-    });
+    }).catch(err => console.log(err));
     setTimeout(function () {
         FCM.isDirectChannelEstablished().then(d => console.log(d));
     }, 1000);
 }
 
 FCM.setNotificationCategories([{
-  id: 'com.myidentifi.fcm.text',
-  actions: [{
-      type: NotificationActionType.TextInput,
-      id: 'reply',
-      title: 'Quick Reply',
-      textInputButtonTitle: 'Send',
-      textInputPlaceholder: 'Say something',
-      intentIdentifiers: [],
-      options: NotificationActionOption.AuthenticationRequired
+    id: 'com.myidentifi.fcm.text',
+    actions: [{
+        type: NotificationActionType.TextInput,
+        id: 'reply',
+        title: 'Quick Reply',
+        textInputButtonTitle: 'Send',
+        textInputPlaceholder: 'Say something',
+        intentIdentifiers: [],
+        options: NotificationActionOption.AuthenticationRequired
     },
     {
-      type: NotificationActionType.Default,
-      id: 'view',
-      title: 'View in App',
-      intentIdentifiers: [],
-      options: NotificationActionOption.Foreground
+        type: NotificationActionType.Default,
+          id: 'view',
+        title: 'View in App',
+        intentIdentifiers: [],
+        options: NotificationActionOption.Foreground
     },
     {
-      type: NotificationActionType.Default,
-      id: 'dismiss',
-      title: 'Dismiss',
-      intentIdentifiers: [],
-      options: NotificationActionOption.Destructive
-    }
-  ],
-  options: [NotificationCategoryOption.CustomDismissAction, NotificationCategoryOption.PreviewsShowTitle]
-}])
+        type: NotificationActionType.Default,
+        id: 'dismiss',
+        title: 'Dismiss',
+        intentIdentifiers: [],
+        options: NotificationActionOption.Destructive
+    }],
+    options: [NotificationCategoryOption.CustomDismissAction, NotificationCategoryOption.PreviewsShowTitle]
+}]);
